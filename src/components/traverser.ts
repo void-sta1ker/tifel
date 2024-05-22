@@ -1,8 +1,14 @@
-import type Ast from "../types/ast";
-import type Config from "../types/config";
-import type Visitor from "../types/visitor";
+import Context from "../types/context";
 
-function traverser(config: Config, ast: Ast, visitor: Visitor) {
+type TraverserFn = (
+  arg: Readonly<{
+    config: Context["config"];
+    ast: Context["newAst"];
+    visitor: Context["visitor"];
+  }>
+) => Context["newAst"];
+
+const traverser: TraverserFn = ({ config, ast, visitor }) => {
   function traverseArray(array, parent) {
     array.forEach((node) => traverseNode(node, parent));
   }
@@ -24,6 +30,6 @@ function traverser(config: Config, ast: Ast, visitor: Visitor) {
   traverseNode(ast, null);
 
   return ast;
-}
+};
 
 export default traverser;

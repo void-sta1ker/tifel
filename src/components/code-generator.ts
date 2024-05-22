@@ -1,7 +1,14 @@
-import type Config from "../types/config";
+import type Context from "../types/context";
 
-function codeGenerator(config: Config, node): string {
+type CodeGeneratorFn = (
+  arg: Readonly<{
+    config: Context["config"];
+    ast: Context["newAst"];
+  }>
+) => Context["output"];
+
+const codeGenerator: CodeGeneratorFn = ({ config, ast }) => {
   return "";
-}
+};
 
 export default codeGenerator;

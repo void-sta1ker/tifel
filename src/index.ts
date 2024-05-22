@@ -3,39 +3,28 @@ import transformer from "./components/transformer";
 import parser from "./components/parser";
 import codeGenerator from "./components/code-generator";
 import compose from "./utils/compose";
-import curry from "./utils/curry";
+import promisify from "./utils/promisify";
 import type Config from "./types/config";
 
-// const converter = compose(tokenizer, parser, transformer, codeGenerator);
+function tifel(input: string, config?: Config) {
+  const converter = compose(codeGenerator, transformer, parser, tokenizer);
 
-// const curriedTifel = curry(converter);
-
-function tifel(input: string, config: Config) {
-  const curriedTokenizer = curry(tokenizer)(config);
-  const curriedParser = curry(parser)(config);
-  const curriedTransformer = curry(transformer)(config);
-  const curriedCodeGenerator = curry(codeGenerator)(config);
-
-  const converter = compose(
-    curriedTokenizer,
-    curriedParser,
-    curriedTransformer,
-    curriedCodeGenerator
-  );
-
-  return converter(input);
+  return converter({ config, input });
 }
 
 export default tifel;
 
-function tifelAsync(input: string, config: Config) {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(tifel(input, config));
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
+// function tifelAsync(input: string, config: Config) {
+//   return new Promise((resolve, reject) => {
+//     try {
+//       resolve(tifel(input, config));
+//       // compose(resolve, tifel)(input, config)();
+//     } catch (error) {
+//       reject(error);
+//     }
+//   });
+// }
+
+const tifelAsync = promisify(tifel);
 
 export { tifelAsync };

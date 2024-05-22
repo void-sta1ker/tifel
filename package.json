@@ -1,0 +1,30 @@
+{
+  "name": "tifel",
+  "version": "1.0.0",
+  "description": "javascript ternary operator to if else converter",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "convert": "tsx src/example.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javascript",
+    "converter",
+    "ternary",
+    "if else"
+  ],
+  "author": "void-sta1ker",
+  "license": "MIT",
+  "devDependencies": {
+    "tsx": "^4.10.5"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "pnpm": ">=9.1.1"
+  },
+  "packageManager": "pnpm@9.1.1",
+  "volta": {
+    "node": "20.11.0"
+  }
+}

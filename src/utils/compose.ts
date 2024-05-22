@@ -1,3 +1,6 @@
+import curry from "./curry";
+import id from "./id";
+
 type Func<T extends any[], R> = (...a: T) => R;
 
 function compose<T extends any[], R>(
@@ -13,4 +16,6 @@ function compose<T extends any[], R>(
   };
 }
 
-export default compose;
+const curriedCompose = curry(compose)(id);
+
+export default curriedCompose;
