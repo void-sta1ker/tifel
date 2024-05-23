@@ -7,6 +7,13 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@types/ramda':
+        specifier: ^0.30.0
+        version: 0.30.0
+      ramda:
+        specifier: ^0.30.0
+        version: 0.30.0
     devDependencies:
       tsx:
         specifier: ^4.10.5
@@ -152,6 +159,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@types/ramda@0.30.0':
+    resolution: {integrity: sha512-DQtfqUbSB18iM9NHbQ++kVUDuBWHMr6T2FpW1XTiksYRGjq4WnNPZLt712OEHEBJs7aMyJ68Mf2kGMOP1srVVw==}
+
   esbuild@0.20.2:
     resolution: {integrity: sha512-WdOOppmUNU+IbZ0PaDiTst80zjnrOkyJNHoKupIcVyU8Lvla3Ugx94VzkQ32Ijqd7UhHJy75gNWDMUekcrSJ6g==}
     engines: {node: '>=12'}
@@ -165,13 +175,22 @@ packages:
   get-tsconfig@4.7.5:
     resolution: {integrity: sha512-ZCuZCnlqNzjb4QprAzXKdpp/gh6KTxSJuw3IBsPnV/7fV4NxC9ckB+vPTt8w7fJA0TaSD7c55BR47JD6MEDyDw==}
 
+  ramda@0.30.0:
+    resolution: {integrity: sha512-13Y0iMhIQuAm/wNGBL/9HEqIfRGmNmjKnTPlKWfA9f7dnDkr8d45wQ+S7+ZLh/Pq9PdcGxkqKUEA7ySu1QSd9Q==}
+
   resolve-pkg-maps@1.0.0:
     resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
+
+  ts-toolbelt@9.6.0:
+    resolution: {integrity: sha512-nsZd8ZeNUzukXPlJmTBwUAuABDe/9qtVDelJeT/qW0ow3ZS3BsQJtNkan1802aM9Uf68/Y8ljw86Hu0h5IUW3w==}
 
   tsx@4.10.5:
     resolution: {integrity: sha512-twDSbf7Gtea4I2copqovUiNTEDrT8XNFXsuHpfGbdpW/z9ZW4fTghzzhAG0WfrCuJmJiOEY1nLIjq4u3oujRWQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
+
+  types-ramda@0.30.0:
+    resolution: {integrity: sha512-oVPw/KHB5M0Du0txTEKKM8xZOG9cZBRdCVXvwHYuNJUVkAiJ9oWyqkA+9Bj2gjMsHgkkhsYevobQBWs8I2/Xvw==}
 
 snapshots:
 
@@ -244,6 +263,10 @@ snapshots:
   '@esbuild/win32-x64@0.20.2':
     optional: true
 
+  '@types/ramda@0.30.0':
+    dependencies:
+      types-ramda: 0.30.0
+
   esbuild@0.20.2:
     optionalDependencies:
       '@esbuild/aix-ppc64': 0.20.2
@@ -277,7 +300,11 @@ snapshots:
     dependencies:
       resolve-pkg-maps: 1.0.0
 
+  ramda@0.30.0: {}
+
   resolve-pkg-maps@1.0.0: {}
+
+  ts-toolbelt@9.6.0: {}
 
   tsx@4.10.5:
     dependencies:
@@ -285,3 +312,7 @@ snapshots:
       get-tsconfig: 4.7.5
     optionalDependencies:
       fsevents: 2.3.3
+
+  types-ramda@0.30.0:
+    dependencies:
+      ts-toolbelt: 9.6.0

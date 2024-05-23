@@ -1,10 +1,12 @@
-type Fn<T extends unknown> = (...args: any[]) => T;
+type Fn<T, U extends unknown[]> = (...args: U) => T;
 
-function promisify<T>(fn: Fn<T>) {
-  return function () {
+function promisify<T, U extends unknown[]>(
+  fn: Fn<T, U>
+): (...args: U) => Promise<T> {
+  return function (...args: U): Promise<T> {
     return new Promise<T>((resolve, reject) => {
       try {
-        resolve(fn(arguments));
+        resolve(fn(...args));
       } catch (error) {
         reject(error);
       }

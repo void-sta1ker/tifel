@@ -1,17 +1,13 @@
-type CurriedFunction<T extends any[], R> = T extends [infer A, ...infer Rest]
-  ? (arg: A) => CurriedFunction<Rest, R>
-  : R;
-
-function curry<T extends any[], R>(
-  fn: (...args: T) => R
-): CurriedFunction<T, R> {
-  return function curried(...args: any[]): any {
+function curry(fn) {
+  return function curried(...args) {
     if (args.length >= fn.length) {
-      return fn(...args);
+      return fn.apply(this, args);
     } else {
-      return (...nextArgs: any[]) => curried(...args, ...nextArgs);
+      return function (...nextArgs) {
+        return curried.apply(this, args.concat(nextArgs));
+      };
     }
-  } as CurriedFunction<T, R>;
+  };
 }
 
 export default curry;

@@ -15,9 +15,16 @@ interface Node {
 }
 
 interface Ast {
-  type: string;
-  children: Node[];
-  [key: string]: any;
+  type: "Program";
+  body: Node[];
+}
+
+interface CallExpression extends Node {
+  type: "CallExpression";
+  name: string;
+  arguments: Node[];
+  // callee: Node;
+  // parent: Node;
 }
 
 export type { Node };

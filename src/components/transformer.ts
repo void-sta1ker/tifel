@@ -5,7 +5,6 @@ type TransformerFn = (
   arg: Readonly<{
     config: Context["config"];
     ast: Context["ast"];
-    visitor: Context["visitor"];
   }>
 ) => {
   config: Context["config"];
@@ -15,7 +14,7 @@ type TransformerFn = (
 const transformer: TransformerFn = ({ config, ast }) => {
   return {
     config,
-    newAst: traverser({ config, ast, visitor: config.visitor }),
+    newAst: traverser({ config, ast, visitor: {} }),
   };
 };
 

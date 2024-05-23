@@ -3,11 +3,11 @@ import type Context from "../types/context";
 type CodeGeneratorFn = (
   arg: Readonly<{
     config: Context["config"];
-    ast: Context["newAst"];
+    newAst: Context["newAst"];
   }>
 ) => Context["output"];
 
-const codeGenerator: CodeGeneratorFn = ({ config, ast }) => {
+const codeGenerator: CodeGeneratorFn = ({ config, newAst }) => {
   return "";
 };
 

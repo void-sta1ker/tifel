@@ -1,4 +1,3 @@
-import type Config from "../types/config";
 import type Context from "../types/context";
 
 type ParserFn = (
@@ -12,7 +11,7 @@ type ParserFn = (
 };
 
 const parser: ParserFn = ({ config, tokens }) => {
-  return { ast: { type: "root", children: [] }, config };
+  return { ast: { type: "Program", body: [] }, config };
 };
 
 export default parser;
