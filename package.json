@@ -12,7 +12,7 @@
     "javascript",
     "converter",
     "ternary",
-    "if else"
+    "if-else"
   ],
   "author": "void-sta1ker",
   "license": "MIT",
@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@types/ramda": "^0.30.0",
+    "acorn": "^8.11.3",
     "ramda": "^0.30.0"
   }
 }

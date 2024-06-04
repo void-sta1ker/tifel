@@ -11,6 +11,9 @@ importers:
       '@types/ramda':
         specifier: ^0.30.0
         version: 0.30.0
+      acorn:
+        specifier: ^8.11.3
+        version: 8.11.3
       ramda:
         specifier: ^0.30.0
         version: 0.30.0
@@ -162,6 +165,11 @@ packages:
   '@types/ramda@0.30.0':
     resolution: {integrity: sha512-DQtfqUbSB18iM9NHbQ++kVUDuBWHMr6T2FpW1XTiksYRGjq4WnNPZLt712OEHEBJs7aMyJ68Mf2kGMOP1srVVw==}
 
+  acorn@8.11.3:
+    resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+
   esbuild@0.20.2:
     resolution: {integrity: sha512-WdOOppmUNU+IbZ0PaDiTst80zjnrOkyJNHoKupIcVyU8Lvla3Ugx94VzkQ32Ijqd7UhHJy75gNWDMUekcrSJ6g==}
     engines: {node: '>=12'}
@@ -266,6 +274,8 @@ snapshots:
   '@types/ramda@0.30.0':
     dependencies:
       types-ramda: 0.30.0
+
+  acorn@8.11.3: {}
 
   esbuild@0.20.2:
     optionalDependencies:
