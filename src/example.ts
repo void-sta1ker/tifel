@@ -1,7 +1,15 @@
 import tifel, { tifelAsync } from ".";
 
-const input = `const a = true ? 1 : 0;`;
+const input = `
+function log(a) {
+  console.log(a);
+}
 
-console.log("result: ", tifel(input));
+const variable = false ? 1 ? 1 : 2 : true ? 0 : -1;
 
-// tifelAsync(input).then((output) => console.log(`result async: ${output}`));
+log(variable);
+`;
+
+console.log("\nresult:\n", tifel(input), "\n");
+
+tifelAsync(input).then((output) => console.log(`\nresult async:\n${output}\n`));
