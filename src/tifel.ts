@@ -1,12 +1,17 @@
 import { type ConditionalExpression } from "estree";
-import { type CallExpression, parse } from "acorn";
-import { simple as walk } from "acorn-walk";
+import { parse } from "acorn";
+import { ancestor as walk } from "acorn-walk";
 import escodegen from "escodegen";
 import { inspect } from "util";
 import ternaryToIfElse from "./transformers/ternary-to-if-else";
+import findRight from "./utils/findRight";
+import hashObject from "./utils/hash-object";
+import replaceChild from "./utils/replace-child";
 import type Config from "./types/config";
 
 function tifel(input: string, config?: Config) {
+  const map = new Map<string, boolean>();
+
   const parsed = parse(input, {
     ecmaVersion: "latest",
     sourceType: "module",
@@ -15,23 +20,28 @@ function tifel(input: string, config?: Config) {
   const ast = structuredClone(parsed);
 
   walk(ast, {
-    VariableDeclaration(node) {
-      node.declarations.map(({ id, init }) => {
-        if (init?.type === "ConditionalExpression") {
-          const anonFn = ternaryToIfElse(init as ConditionalExpression) ?? [];
+    ConditionalExpression(node, _, ancestors) {
+      const parent = findRight(
+        ancestors,
+        (x) => x.type !== "ConditionalExpression"
+      );
 
-          ast.body.find((n) => {
-            if (n.type === "VariableDeclaration") {
-              const declaration = n.declarations.find((d) => d.id === id);
-              declaration &&
-                declaration.init &&
-                (declaration.init = anonFn as CallExpression);
-            }
-          });
+      if (parent) {
+        const id = hashObject(parent);
+
+        // MUTATION
+        if (!map.has(id)) {
+          const anonFn = ternaryToIfElse(node as ConditionalExpression) ?? [];
+
+          replaceChild(parent, anonFn, node);
+
+          map.set(id, true);
         }
-      });
+      }
     },
   });
+
+  map.clear();
 
   // console.log(inspect(ast, { showHidden: true, depth: null }));
 
