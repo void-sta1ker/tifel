@@ -4,7 +4,7 @@ import { ancestor as walk } from "acorn-walk";
 import escodegen from "escodegen";
 import { inspect } from "util";
 import ternaryToIfElse from "./transformers/ternary-to-if-else";
-import findRight from "./utils/findRight";
+import findRight from "./utils/find-right";
 import hashObject from "./utils/hash-object";
 import replaceChild from "./utils/replace-child";
 import type Config from "./types/config";

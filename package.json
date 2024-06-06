@@ -1,10 +1,14 @@
 {
   "name": "tifel",
   "version": "1.0.0",
-  "description": "javascript ternary operator to if else converter",
+  "description": "Convert ternary expressions to if-else statements",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "tifel": "./dist/cli/index.js"
+  },
   "scripts": {
+    "build": "tsc",
     "convert": "tsx src/example.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,11 +20,19 @@
   ],
   "author": "void-sta1ker",
   "license": "MIT",
+  "dependencies": {
+    "acorn": "^8.11.3",
+    "acorn-walk": "^8.3.2",
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "escodegen": "^2.1.0"
+  },
   "devDependencies": {
     "@types/escodegen": "^0.0.10",
     "@types/estree": "^1.0.5",
     "@types/node": "^20.14.2",
-    "tsx": "^4.10.5"
+    "tsx": "^4.10.5",
+    "typescript": "^5.4.5"
   },
   "engines": {
     "node": ">=16.0.0",
@@ -29,11 +41,5 @@
   "packageManager": "pnpm@9.1.1",
   "volta": {
     "node": "20.11.0"
-  },
-  "dependencies": {
-    "acorn": "^8.11.3",
-    "acorn-walk": "^8.3.2",
-    "chalk": "^5.3.0",
-    "escodegen": "^2.1.0"
   }
 }
