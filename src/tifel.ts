@@ -1,4 +1,5 @@
-import { parse } from "acorn";
+import { type ConditionalExpression } from "estree";
+import { type CallExpression, parse } from "acorn";
 import { simple as walk } from "acorn-walk";
 import escodegen from "escodegen";
 import { inspect } from "util";
@@ -15,21 +16,24 @@ function tifel(input: string, config?: Config) {
 
   walk(ast, {
     VariableDeclaration(node) {
-      const newNodes = ternaryToIfElse(node) ?? [];
+      node.declarations.map(({ id, init }) => {
+        if (init?.type === "ConditionalExpression") {
+          const anonFn = ternaryToIfElse(init as ConditionalExpression) ?? [];
 
-      ast.body.splice(
-        ast.body.findIndex(
-          (n) =>
-            n.type === "VariableDeclaration" &&
-            n?.declarations?.[0]?.id === node.declarations[0].id
-        ),
-        1,
-        ...newNodes
-      );
+          ast.body.find((n) => {
+            if (n.type === "VariableDeclaration") {
+              const declaration = n.declarations.find((d) => d.id === id);
+              declaration &&
+                declaration.init &&
+                (declaration.init = anonFn as CallExpression);
+            }
+          });
+        }
+      });
     },
   });
 
-  console.log(inspect(ast, { showHidden: true, depth: null }));
+  // console.log(inspect(ast, { showHidden: true, depth: null }));
 
   const code = escodegen
     .generate(ast, { format: { compact: false } })

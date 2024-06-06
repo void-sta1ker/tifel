@@ -1,79 +1,46 @@
-import type { Statement } from "acorn";
+import type {
+  ConditionalExpression,
+  CallExpression,
+  IfStatement,
+} from "estree";
 
-export default function ternaryToIfElse(node): Statement[] | undefined {
-  if (node.type === "VariableDeclaration") {
-    const { id } = node.declarations[0];
-    const { test, consequent, alternate } = node.declarations[0].init;
+export default function ternaryToIfElse(node: ConditionalExpression) {
+  const anonFn: CallExpression = {
+    type: "CallExpression",
+    callee: {
+      type: "ArrowFunctionExpression",
+      expression: false,
+      generator: false,
+      async: false,
+      params: [],
+      body: { type: "BlockStatement", body: [createIfStatement(node)] },
+    },
+    arguments: [],
+    optional: false,
+  };
 
-    const varDeclaration = {
-      type: "VariableDeclaration",
-      declarations: [
-        {
-          type: "VariableDeclarator",
-          id,
-          init: null,
-        },
-      ],
-      kind: node.kind === "const" ? "let" : node.kind,
-    };
-
-    const emptyStatement = {
-      type: "EmptyStatement",
-    };
-
-    const ifStatement = createIfStatement(id, test, consequent, alternate);
-
-    return [varDeclaration, emptyStatement, ifStatement];
-  }
+  return anonFn;
 }
 
-function createIfStatement(identifier, test, consequent, alternate) {
+function createIfStatement(node: ConditionalExpression): IfStatement {
+  const { test, consequent, alternate } = node;
+
   return {
     type: "IfStatement",
     test,
     consequent:
       consequent.type === "ConditionalExpression"
-        ? createIfStatement(
-            identifier,
-            consequent.test,
-            consequent.consequent,
-            consequent.alternate
-          )
+        ? createIfStatement(consequent)
         : {
-            type: "BlockStatement",
-            body: [
-              {
-                type: "ExpressionStatement",
-                expression: {
-                  type: "AssignmentExpression",
-                  operator: "=",
-                  left: identifier,
-                  right: consequent,
-                },
-              },
-            ],
+            type: "ReturnStatement",
+            argument: consequent,
           },
     alternate:
       alternate.type === "ConditionalExpression"
-        ? createIfStatement(
-            identifier,
-            alternate.test,
-            alternate.consequent,
-            alternate.alternate
-          )
+        ? createIfStatement(alternate)
         : {
-            type: "BlockStatement",
-            body: [
-              {
-                type: "ExpressionStatement",
-                expression: {
-                  type: "AssignmentExpression",
-                  operator: "=",
-                  left: identifier,
-                  right: alternate,
-                },
-              },
-            ],
+            type: "ReturnStatement",
+            argument: alternate,
           },
   };
 }
