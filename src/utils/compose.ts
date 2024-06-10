@@ -1,5 +1,5 @@
-import curry from "./curry";
-import id from "./id";
+import curry from "./curry.js";
+import id from "./id.js";
 
 type Func<T extends any[], R> = (...a: T) => R;
 

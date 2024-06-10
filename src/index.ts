@@ -1,5 +1,5 @@
-import promisify from "./utils/promisify";
-import tifel from "./tifel";
+import promisify from "./utils/promisify.js";
+import tifel from "./tifel.js";
 
 const tifelAsync = promisify(tifel);
 

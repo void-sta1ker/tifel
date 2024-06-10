@@ -3,14 +3,14 @@
 import { program } from "commander";
 import fs from "fs";
 import path from "path";
-import tifel from "..";
+import tifel from "../index.js";
 
 program
   .version("1.0.0")
   .description("Convert ternary expressions to if-else statements");
 
 program
-  .command("tifel <inputFile> [outputFile]")
+  .command("convert <inputFile> [outputFile]")
   .description("Convert ternary expressions in a file to if-else statements")
   .action((inputFile, outputFile) => {
     const inputPath = path.resolve(inputFile);

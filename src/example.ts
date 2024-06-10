@@ -1,4 +1,4 @@
-import tifel, { tifelAsync } from ".";
+import tifel, { tifelAsync } from "./index.js";
 
 const input = `
 const variable = false ? 1 ? 1 : 2 : true ? 0 : -1;
