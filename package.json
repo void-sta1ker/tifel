@@ -1,6 +1,6 @@
 {
   "name": "tifel",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Convert ternary expressions to if-else statements",
   "main": "./dist/index.js",
   "type": "module",

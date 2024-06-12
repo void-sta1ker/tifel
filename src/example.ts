@@ -20,13 +20,17 @@ function greet(name = isGuest ? 'Guest' : 'User', a = 1 ? 1: 1) {
 console.log(1, isActive ? 'Active' : 'Inactive', 2);
 
 const statuses = [isActive ? 'Active' : 'Inactive', 'Pending'];
+
+Array.isArray(person.address)
+      ? person.address
+      : person.address !== null && typeof person.address === "object"
+      ? [person.address]
+      : [];
 `;
 
 const input2 =
   "const message = `The user is ${isActive ? 'active' : 'inactive'}.`";
 
-console.log("\nresult:\n", tifel(input2), "\n");
+console.log("\nresult:\n", tifel(input), "\n");
 
-tifelAsync(input2).then((output) =>
-  console.log(`\nresult async:\n${output}\n`)
-);
+tifelAsync(input).then((output) => console.log(`\nresult async:\n${output}\n`));

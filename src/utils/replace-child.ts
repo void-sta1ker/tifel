@@ -3,6 +3,7 @@ import type {
   AssignmentPattern,
   CallExpression,
   ConditionalExpression,
+  ExpressionStatement,
   LogicalExpression,
   Property,
   ReturnStatement,
@@ -18,7 +19,8 @@ type ParentType =
   | AssignmentPattern
   | CallExpression
   | ArrayExpression
-  | TemplateLiteral;
+  | TemplateLiteral
+  | ExpressionStatement;
 
 export default function replaceNode(
   parent: ParentType,
@@ -84,6 +86,11 @@ export default function replaceNode(
       parent.expressions.splice(index, 1, node);
       return;
     }
+  }
+
+  if (parent.type === "ExpressionStatement") {
+    parent.expression = node;
+    return;
   }
 }
 
