@@ -17,3 +17,6 @@ function greet(name = isGuest ? "Guest" : "User", a = 1 ? 1 : 1) {
 console.log(1, isActive ? "Active" : "Inactive", 2);
 
 const statuses = [isActive ? "Active" : "Inactive", "Pending"];
+
+let abcd;
+abcd = true ? 1 : 0;

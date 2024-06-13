@@ -26,6 +26,9 @@ Array.isArray(person.address)
       : person.address !== null && typeof person.address === "object"
       ? [person.address]
       : [];
+
+let abcd;
+abcd = true ? 1 : 0;
 `;
 
 const input2 =
